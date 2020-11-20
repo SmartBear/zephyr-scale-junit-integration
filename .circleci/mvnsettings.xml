@@ -3,9 +3,9 @@
           xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
     <servers>
         <server>
-            <id>bintray-avst-TM4J</id>
-            <username>${JFROG_USER}</username>
-            <password>${JFROG_API_KEY}</password>
+            <id>bintray-zephyrscale</id>
+            <username>${ZEPHYRSCALE_JFROG_USER}</username>
+            <password>${ZEPHYRSCALE_JFROG_API_KEY}</password>
         </server>
     </servers>
     <profiles>

@@ -11,7 +11,7 @@
 
     <name>Zephyr Scale JUnit Integration</name>
     <description>JUnit utility to integrate JUnit tests with Zephyr Scale.</description>
-    <url>https://bitbucket.org/smartbeartm4j/tm4j-junit-integration</url>
+    <url>https://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration</url>
 
     <licenses>
         <license>
@@ -29,9 +29,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://bitbucket.org/smartbeartm4j/tm4j-junit-integration.git</connection>
-        <developerConnection>scm:git:ssh://bitbucket.org:smartbeartm4j/tm4j-junit-integration.git</developerConnection>
-        <url>https://bitbucket.org/smartbeartm4j/tm4j-junit-integration</url>
+        <connection>scm:git:git://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration.git</connection>
+        <developerConnection>scm:git:ssh://bitbucket.org:smartbeartm4j/zephyrscale-junit-integration.git</developerConnection>
+        <url>https://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration</url>
     </scm>
 
     <dependencies>
@@ -116,9 +116,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-avst-TM4J</id>
-            <name>avst-TM4J</name>
-            <url>https://api.bintray.com/maven/avst/TM4J/tm4j-junit-integration/;publish=1</url>
+            <id>bintray-zephyrscale</id>
+            <name>zephyrscale</name>
+            <url>https://api.bintray.com/zephyrscale/zephyrscale/zephyrscale-junit-integration/;publish=1</url>
         </repository>
     </distributionManagement>
 
