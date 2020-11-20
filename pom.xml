@@ -116,9 +116,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-zephyrscale</id>
-            <name>zephyrscale</name>
-            <url>https://api.bintray.com/zephyrscale/zephyrscale/zephyrscale-junit-integration/;publish=1</url>
+            <id>bintray-zephyrscale-zephyrscale</id>
+            <name>zephyrscale-zephyrscale</name>
+            <url>https://api.bintray.com/maven/zephyrscale/zephyrscale/zephyrscale-junit-integration/;publish=1</url>
         </repository>
     </distributionManagement>
 

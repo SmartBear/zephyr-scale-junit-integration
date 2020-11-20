@@ -3,7 +3,7 @@
           xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
     <servers>
         <server>
-            <id>bintray-zephyrscale</id>
+            <id>bintray-zephyrscale-zephyrscale</id>
             <username>${ZEPHYRSCALE_JFROG_USER}</username>
             <password>${ZEPHYRSCALE_JFROG_API_KEY}</password>
         </server>
@@ -15,9 +15,9 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>central</id>
+                    <id>bintray-zephyrscale-zephyrscale</id>
                     <name>bintray</name>
-                    <url>http://jcenter.bintray.com</url>
+                    <url>https://dl.bintray.com/zephyrscale/zephyrscale</url>
                 </repository>
             </repositories>
             <pluginRepositories>
@@ -25,9 +25,9 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>central</id>
+                    <id>bintray-zephyrscale-zephyrscale</id>
                     <name>bintray-plugins</name>
-                    <url>http://jcenter.bintray.com</url>
+                    <url>https://dl.bintray.com/zephyrscale/zephyrscale</url>
                 </pluginRepository>
             </pluginRepositories>
             <id>bintray</id>
