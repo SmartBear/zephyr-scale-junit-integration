@@ -25,3 +25,4 @@ workflows:
     jobs:
       - maven/test:
           executor: openjdk8
+          context: tm4j
