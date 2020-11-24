@@ -25,4 +25,5 @@ workflows:
     jobs:
       - maven/test:
           executor: openjdk8
+          command: -s mvnsettings.xml verify
           context: tm4j
