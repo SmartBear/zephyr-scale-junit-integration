@@ -30,20 +30,13 @@
                     <url>https://dl.bintray.com/zephyrscale/zephyrscale</url>
                 </pluginRepository>
             </pluginRepositories>
-            <id>bintray</id>
-        </profile>
-        <profile>
-            <id>sign</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
             </properties>
+            <id>bintray</id>
         </profile>
     </profiles>
     <activeProfiles>
         <activeProfile>bintray</activeProfile>
-        <activeProfile>sign</activeProfile>
     </activeProfiles>
 </settings>
