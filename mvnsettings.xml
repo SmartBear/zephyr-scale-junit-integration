@@ -33,17 +33,17 @@
             <id>bintray</id>
         </profile>
         <profile>
-            <id>gpg-sign</id>
+            <id>sign</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <gpg.executable>gpg</gpg.executable>
                 <gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
             </properties>
         </profile>
     </profiles>
     <activeProfiles>
         <activeProfile>bintray</activeProfile>
+        <activeProfile>sign</activeProfile>
     </activeProfiles>
 </settings>
