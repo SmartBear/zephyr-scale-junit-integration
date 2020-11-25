@@ -10,3 +10,5 @@ Name-Email: tm4j.bot@gmail.com
 Expire-Date: 0
 Passphrase: ${GPG_PASSPHRASE}
 EOF
+
+gpg --keyserver pool.sks-keyservers.net --send-keys $(gpg --with-colons --fingerprint | awk -F: '$1 == "fpr" {print $10;}')
