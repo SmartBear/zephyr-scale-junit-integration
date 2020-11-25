@@ -5,24 +5,49 @@ executors:
     docker:
       - image: maven:3.6-jdk-8
 
-orbs:
-  maven: circleci/maven@1.0.0
+jobs:
+  build_test_job:
+    executor: openjdk8
+    steps:
+      - checkout
+      - run:
+          name: Generate Cache Checksum
+          command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
+      - restore_cache:
+          key: maven-{{ checksum "/tmp/maven_cache_seed" }}
+      - run:
+          name: Setup Maven settings
+          command: |
+            mkdir -p ${HOME}/.m2
+            cp .circleci/settings.xml ${HOME}/.m2/settings.xml
+      - run: mvn verify
+      - save_cache:
+          key: maven-{{ checksum "/tmp/maven_cache_seed" }}
+          paths:
+            - ~/.m2
 
 workflows:
-  build_test_deploy:
-    jobs:
-      - maven/test:
-          executor: openjdk8
-          command: -s mvnsettings.xml deploy -Dgpg.passphrase=${GPG_PASSPHRASE}
-          context: tm4j
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+/
-            branches:
-              ignore: /.*/
+
+#  build_test_deploy:
+
+#    jobs:
+#      - run:
+#          name: Generate GPG key to sign jar files
+#          command: bash ./gen-gpg-key.sh
+#      - run:
+#          name: Build & Deploy
+
+
+#      - maven/test:
+#          executor: openjdk8
+#          command: -s mvnsettings.xml deploy -Prelease
+#          context: tm4j
+#          filters:
+#            tags:
+#              only: /^v\d+\.\d+\.\d+/
+#            branches:
+#              ignore: /.*/
 
   build_test:
     jobs:
-      - maven/test:
-          executor: openjdk8
-          command: verify -Dgpg.skip
+      - build_test_job
