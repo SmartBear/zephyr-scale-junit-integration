@@ -12,7 +12,7 @@ JUnit methods which are not annotated with `@TestCase(name = "")` will also be a
 
 ## Usage
 
-You can have a look at this [Zephyr Scale JUnit Integration Example](https://bitbucket.org/smartbeartm4j/tm4j-junit-integration-example) repository.
+You can have a look at this [Zephyr Scale JUnit Integration Example](https://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration-example) repository.
 
 You need to add the dependency to your pom file.
 
