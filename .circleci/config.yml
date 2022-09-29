@@ -45,7 +45,7 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test_deploy_job:
-          context: tm4j
+          context: zephyr-scale
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+/
