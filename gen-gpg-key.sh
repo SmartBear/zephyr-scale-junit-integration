@@ -11,4 +11,4 @@ Expire-Date: 0
 Passphrase: ${GPG_PASSPHRASE}
 EOF
 
-gpg --keyserver pool.sks-keyservers.net --send-keys $(gpg --with-colons --fingerprint | awk -F: '$1 == "fpr" {print $10;}')
+gpg --keyserver pgp.mit.edu --send-keys $(gpg --with-colons --fingerprint | awk -F: '$1 == "fpr" {print $10;}')
