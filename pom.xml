@@ -63,26 +63,6 @@
     <profiles>
         <profile>
             <id>release</id>
-            <repositories>
-                <repository>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <id>bintray-zephyrscale-zephyrscale</id>
-                    <name>bintray</name>
-                    <url>https://dl.bintray.com/zephyrscale/zephyrscale</url>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <id>bintray-zephyrscale-zephyrscale</id>
-                    <name>bintray-plugins</name>
-                    <url>https://dl.bintray.com/zephyrscale/zephyrscale</url>
-                </pluginRepository>
-            </pluginRepositories>
 
             <build>
                 <plugins>
@@ -158,9 +138,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-zephyrscale-zephyrscale</id>
-            <name>zephyrscale-zephyrscale</name>
-            <url>https://api.bintray.com/maven/zephyrscale/zephyrscale/zephyrscale-junit-integration/;publish=1</url>
+            <id>smartbear-nexus-zephyrscale</id>
+            <name>Public Nexus Repository</name>
+            <url>https://nexus-acadia-external.smartbear.io/repository/smartbear-public/</url>
         </repository>
     </distributionManagement>
 
