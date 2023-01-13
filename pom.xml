@@ -29,9 +29,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration.git</connection>
-        <developerConnection>scm:git:ssh://bitbucket.org:smartbeartm4j/zephyrscale-junit-integration.git</developerConnection>
-        <url>https://bitbucket.org/smartbeartm4j/zephyrscale-junit-integration</url>
+        <connection>scm:git:git://github.com/SmartBear/zephyr-scale-junit-integration.git</connection>
+        <developerConnection>scm:git:ssh://github.com/SmartBear/zephyr-scale-junit-integration.git</developerConnection>
+        <url>https://github.com/SmartBear/zephyr-scale-junit-integration</url>
     </scm>
 
     <dependencies>
@@ -138,9 +138,9 @@
 
     <distributionManagement>
         <repository>
-            <id>smartbear-nexus-zephyrscale</id>
-            <name>Public Nexus Repository</name>
-            <url>https://nexus-acadia-external.smartbear.io/repository/smartbear-public/</url>
+            <id>ossrh</id>
+            <name>Sonatype OSSRH Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
