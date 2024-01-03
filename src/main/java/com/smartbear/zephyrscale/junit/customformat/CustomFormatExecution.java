@@ -1,37 +1,30 @@
 package com.smartbear.zephyrscale.junit.customformat;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@JsonInclude(Include.NON_NULL)
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomFormatExecution {
 
     private String source;
 
     private String result;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    
     private CustomFormatTestCase testCase;
+    
+    // To mitigate javadoc compile time issue for lombok
+    // https://stackoverflow.com/questions/51947791/javadoc-cannot-find-symbol-error-when-using-lomboks-builder-annotation
+    public static class CustomFormatExecutionBuilder {}
 
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public CustomFormatTestCase getTestCase() {
-        return testCase;
-    }
-
-    public void setTestCase(CustomFormatTestCase testCase) {
-        this.testCase = testCase;
-    }
 }
