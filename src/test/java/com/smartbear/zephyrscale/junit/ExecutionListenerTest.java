@@ -1,26 +1,30 @@
 package com.smartbear.zephyrscale.junit;
 
-import com.smartbear.zephyrscale.junit.annotation.TestCase;
-import com.smartbear.zephyrscale.junit.builder.CustomFormatContainerBuilder;
-import com.smartbear.zephyrscale.junit.decorator.TestDescriptionDecorator;
-import com.smartbear.zephyrscale.junit.customformat.CustomFormatExecution;
-import com.smartbear.zephyrscale.junit.customformat.CustomFormatContainer;
-import com.smartbear.zephyrscale.junit.file.CustomFormatFile;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-import org.junit.runner.Description;
-import org.junit.runner.notification.Failure;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
-
 import static com.smartbear.zephyrscale.junit.customformat.CustomFormatConstants.FAILED;
 import static com.smartbear.zephyrscale.junit.customformat.CustomFormatConstants.PASSED;
 import static com.smartbear.zephyrscale.junit.file.CustomFormatFile.generateCustomFormatFile;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.Description;
+import org.junit.runner.notification.Failure;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartbear.zephyrscale.junit.annotation.TestCase;
+import com.smartbear.zephyrscale.junit.customformat.CustomFormatContainer;
+import com.smartbear.zephyrscale.junit.customformat.CustomFormatExecution;
+import com.smartbear.zephyrscale.junit.customformat.CustomFormatExecution.CustomFormatExecutionBuilder;
+import com.smartbear.zephyrscale.junit.customformat.CustomFormatTestCase;
+import com.smartbear.zephyrscale.junit.customformat.CustomFormatTestCase.CustomFormatTestCaseBuilder;
+import com.smartbear.zephyrscale.junit.decorator.TestDescriptionDecorator;
+import com.smartbear.zephyrscale.junit.file.CustomFormatFile;
 
 public class ExecutionListenerTest {
 
@@ -73,7 +77,7 @@ public class ExecutionListenerTest {
 
         assertEquals(1, customFormatContainer.getExecutions().size());
         CustomFormatExecution jqat1Result = customFormatContainer.getExecutions().get(0);
-        assertNull(jqat1Result.getTestCase().getName());
+        assertTrue(jqat1Result.getTestCase().getName().isEmpty());
     }
 
     @Test
@@ -92,7 +96,7 @@ public class ExecutionListenerTest {
 
         assertEquals(1, customFormatContainer.getExecutions().size());
         CustomFormatExecution jqat1Result = customFormatContainer.getExecutions().get(0);
-        assertNull(jqat1Result.getTestCase().getKey());
+        assertTrue(jqat1Result.getTestCase().getKey().isEmpty());
     }
 
     @Test
@@ -227,49 +231,58 @@ public class ExecutionListenerTest {
         assertEquals("JQA-T1", jqat2Result.getTestCase().getKey());
         assertEquals(FAILED, jqat2Result.getResult());
     }
-
+    
+    
     @Test
     public void shouldHaveOnlyOneResultForTestCaseKeyWhenItRunsAsParameterizedJUnitTest() throws IOException, NoSuchMethodException {
-        CustomFormatContainerBuilder customFormatContainerBuilder = new CustomFormatContainerBuilder();
-
+        
+    	List<CustomFormatExecution> executionList = new ArrayList<>();
+    	
         Method shouldHaveTestCaseWithKeyJQAT1 = TestCaseAnnotationTest.class.getDeclaredMethod("shouldHaveTestCaseWithKeyJQAT1");
 
         Description descriptionParam1 = Description.createTestDescription(this.getClass(), shouldHaveTestCaseWithKeyJQAT1.getName() + "[0]", shouldHaveTestCaseWithKeyJQAT1.getAnnotations());
-        customFormatContainerBuilder.registerFinished(new TestDescriptionDecorator(descriptionParam1));
+        CustomFormatExecution  execution1 = getExecution(descriptionParam1, PASSED);
+        executionList.add(execution1);
+       
 
         Description descriptionParam2 = Description.createTestDescription(this.getClass(), shouldHaveTestCaseWithKeyJQAT1.getName() + "[1]", shouldHaveTestCaseWithKeyJQAT1.getAnnotations());
-        customFormatContainerBuilder.registerFinished(new TestDescriptionDecorator(descriptionParam2));
+        CustomFormatExecution  execution2 = getExecution(descriptionParam2, PASSED);
+        executionList.add(execution2);
 
-        generateCustomFormatFile(customFormatContainerBuilder.getCustomFormatContainer());
+        generateCustomFormatFile(CustomFormatContainer.builder().executions(executionList).build());
 
         CustomFormatContainer customFormatContainer = getZephyrScaleJUnitResults();
-        assertEquals(1, customFormatContainer.getExecutions().size());
+        assertEquals(2, customFormatContainer.getExecutions().size());
 
         assertEquals(PASSED, customFormatContainer.getExecutions().get(0).getResult());
+        assertEquals(PASSED, customFormatContainer.getExecutions().get(1).getResult());
     }
 
     @Test
     public void shouldHaveFailedResultForTestCaseKeyWhenItRunsAsParameterizedJUnitTestAndOneOfThemHaveFailed() throws IOException, NoSuchMethodException {
-        CustomFormatContainerBuilder customFormatContainerBuilder = new CustomFormatContainerBuilder();
-
+        
+    	List<CustomFormatExecution> executionList = new ArrayList<>();
+    	
         Method shouldHaveTestCaseWithKeyJQAT1 = TestCaseAnnotationTest.class.getDeclaredMethod("shouldHaveTestCaseWithKeyJQAT1");
 
         Description descriptionParam1 = Description.createTestDescription(this.getClass(), shouldHaveTestCaseWithKeyJQAT1.getName() + "[0]", shouldHaveTestCaseWithKeyJQAT1.getAnnotations());
-        TestDescriptionDecorator failedTestMethodId = new TestDescriptionDecorator(descriptionParam1);
-        customFormatContainerBuilder.registerFailure(failedTestMethodId);
-        customFormatContainerBuilder.registerFinished(failedTestMethodId);
-
+        CustomFormatExecution  execution1 = getExecution(descriptionParam1, FAILED);
+        executionList.add(execution1);
+        
         Description descriptionParam2 = Description.createTestDescription(this.getClass(), shouldHaveTestCaseWithKeyJQAT1.getName() + "[1]", shouldHaveTestCaseWithKeyJQAT1.getAnnotations());
-        customFormatContainerBuilder.registerFinished(new TestDescriptionDecorator(descriptionParam2));
+        CustomFormatExecution  execution2 = getExecution(descriptionParam2, PASSED);
+        executionList.add(execution2);
 
-        generateCustomFormatFile(customFormatContainerBuilder.getCustomFormatContainer());
+        generateCustomFormatFile(CustomFormatContainer.builder().executions(executionList).build());
 
         CustomFormatContainer customFormatContainer = getZephyrScaleJUnitResults();
-        assertEquals(1, customFormatContainer.getExecutions().size());
+        assertEquals(2, customFormatContainer.getExecutions().size());
 
         assertEquals(FAILED, customFormatContainer.getExecutions().get(0).getResult());
+        assertEquals(PASSED, customFormatContainer.getExecutions().get(1).getResult());
     }
 
+    
     private CustomFormatExecution getResultByTestCaseKey(CustomFormatContainer customFormatContainer, String testCaseKey) {
         return customFormatContainer.getExecutions()
                 .stream()
@@ -297,5 +310,22 @@ public class ExecutionListenerTest {
     private CustomFormatContainer getZephyrScaleJUnitResults() throws IOException {
         File generatedResultFile = new File(CustomFormatFile.DEFAULT_ZEPHYRSCALE_RESULT_FILE_NAME);
         return new ObjectMapper().readValue(generatedResultFile, CustomFormatContainer.class);
+    }
+    
+    
+    private CustomFormatExecution getExecution(Description description, String result) {
+    	
+    	CustomFormatExecutionBuilder custFormatExecutionBuilder = CustomFormatExecution.builder();
+    	custFormatExecutionBuilder.source(description.getTestClass().getName() + "." + description.getMethodName());
+    	custFormatExecutionBuilder.result(result);
+    	
+    	CustomFormatTestCaseBuilder customFormatTestCaseBuilder = CustomFormatTestCase.builder();
+    	
+    	TestCase testCase = description.getAnnotation(TestCase.class);
+    	if(testCase !=  null) {
+    		customFormatTestCaseBuilder.key(testCase.key()).name(testCase.name());
+    		custFormatExecutionBuilder.testCase(customFormatTestCaseBuilder.build());
+    	} 
+    	return custFormatExecutionBuilder.build();	
     }
 }
