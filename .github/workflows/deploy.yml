@@ -16,8 +16,6 @@ on:
 jobs:
   deploy:
     runs-on: k8s-runner-linux
-    env:
-      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-maven
@@ -26,5 +24,7 @@ jobs:
           maven-version: '3.6.3'
           ossrh-username: ${{ secrets.OSSRH_USERNAME }}
           ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
-      - run: bash ./gen-gpg-key.sh
+      - env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: bash ./gen-gpg-key.sh
       # - run: mvn deploy -Prelease

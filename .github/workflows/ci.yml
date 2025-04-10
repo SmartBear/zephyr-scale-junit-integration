@@ -6,4 +6,6 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yml
-    secrets: inherit
+    secrets:
+      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
