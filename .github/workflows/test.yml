@@ -11,7 +11,7 @@ jobs:
       - uses: ./.github/actions/setup-maven
         with:
           java-version: '8'
-          maven-version: '3.6'
+          maven-version: '3.6.3'
           ossrh-username: ${{ secrets.OSSRH_USERNAME }}
           ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
       - run: mvn verify
