@@ -1,0 +1,17 @@
+name: Test
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: k8s-runner-linux
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-maven
+        with:
+          java-version: '8'
+          maven-version: '3.6'
+          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
+      - run: mvn verify

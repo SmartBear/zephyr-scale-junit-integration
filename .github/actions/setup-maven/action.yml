@@ -1,0 +1,33 @@
+name: 'Setup Maven'
+description: 'Installs maven and provides secrets'
+inputs:
+  java-version:
+    description: 'The Java version to use'
+    required: true
+    type: string
+  maven-version:
+    description: 'The Maven version to use'
+    required: true
+    type: string
+  nexus-username:
+    description: 'The Nexus username'
+    required: true
+    type: string
+  nexus-password:
+    description: 'The Nexus password'
+    required: true
+    type: string
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.18.0
+      with:
+        java-version: ${{ inputs.java-version }}
+        maven-version: ${{ inputs.maven-version }}
+    - shell: bash
+      run: |
+        mkdir -p $HOME/.m2
+        cp .github/settings.xml $HOME/.m2/settings.xml
+        sed -i "s|\${OSSRH_USERNAME}|${{ inputs.ossrh-username }}|g" $HOME/.m2/settings.xml
+        sed -i "s|\${OSSRH_PASSWORD}|${{ inputs.ossrh-password }}|g" $HOME/.m2/settings.xml
