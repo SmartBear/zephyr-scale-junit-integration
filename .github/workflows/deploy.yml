@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: k8s-runner-linux
+    env:
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-maven
+        with:
+          java-version: '8'
+          maven-version: '3.6.3'
+          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
+      - run: bash ./gen-gpg-key.sh
+      # - run: mvn deploy -Prelease

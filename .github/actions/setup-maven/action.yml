@@ -9,12 +9,12 @@ inputs:
     description: 'The Maven version to use'
     required: true
     type: string
-  nexus-username:
-    description: 'The Nexus username'
+  ossrh-username:
+    description: 'The OSSRH username'
     required: true
     type: string
-  nexus-password:
-    description: 'The Nexus password'
+  ossrh-password:
+    description: 'The OSSRH password'
     required: true
     type: string
 runs:
