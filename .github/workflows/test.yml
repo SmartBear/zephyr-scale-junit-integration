@@ -2,6 +2,13 @@ name: Test
 
 on:
   workflow_call:
+    secrets:
+      OSSRH_USERNAME:
+        required: true
+        description: 'The OSSRH username'
+      OSSRH_PASSWORD:
+        required: true
+        description: 'The OSSRH password'
 
 jobs:
   build:

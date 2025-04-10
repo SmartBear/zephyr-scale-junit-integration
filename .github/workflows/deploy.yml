@@ -2,9 +2,19 @@ name: Deploy
 
 on:
   workflow_call:
+    secrets:
+      GPG_PASSPHRASE:
+        required: true
+        description: 'The GPG passphrase'
+      OSSRH_USERNAME:
+        required: true
+        description: 'The OSSRH username'
+      OSSRH_PASSWORD:
+        required: true
+        description: 'The OSSRH password'
 
 jobs:
-  build:
+  deploy:
     runs-on: k8s-runner-linux
     env:
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
