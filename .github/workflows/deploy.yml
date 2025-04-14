@@ -27,4 +27,6 @@ jobs:
       - env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: bash ./gen-gpg-key.sh
-      # - run: mvn deploy -Prelease
+        name: Generate GPG key
+      - name: Deploy
+        run: mvn deploy -Prelease
