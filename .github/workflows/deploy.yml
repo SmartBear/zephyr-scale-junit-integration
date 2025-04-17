@@ -26,7 +26,9 @@ jobs:
           ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
       - env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: ./gen-gpg-key.sh
+        run: |
+          ./gen-gpg-key.sh
+          sed -i "s/\${GPG_PASSPHRASE}/$GPG_PASSPHRASE/g" ./pom.xml
         name: Generate GPG key
       - name: Deploy
         run: mvn deploy -Prelease -X
