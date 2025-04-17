@@ -31,3 +31,4 @@ runs:
         cp .github/settings.xml $HOME/.m2/settings.xml
         sed -i "s|\${OSSRH_USERNAME}|${{ inputs.ossrh-username }}|g" $HOME/.m2/settings.xml
         sed -i "s|\${OSSRH_PASSWORD}|${{ inputs.ossrh-password }}|g" $HOME/.m2/settings.xml
+        cat $HOME/.m2/settings.xml
