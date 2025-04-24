@@ -6,7 +6,7 @@ Key-Length: 2048
 Subkey-Type: 1
 Subkey-Length: 2048
 Name-Real: zephyrscale
-Name-Email: tm4j.bot@gmail.com
+Name-Email: svc_zephyr_scale@smartbear.com
 Expire-Date: 0
 Passphrase: ${GPG_PASSPHRASE}
 EOF
