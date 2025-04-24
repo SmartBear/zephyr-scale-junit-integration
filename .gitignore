@@ -7,3 +7,4 @@ target
 .project
 .settings/
 zephyrscale_result.json
+.vscode

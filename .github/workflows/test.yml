@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  workflow_call:
+    secrets:
+      OSSRH_USERNAME:
+        required: true
+        description: 'The OSSRH username'
+      OSSRH_PASSWORD:
+        required: true
+        description: 'The OSSRH password'
+
+jobs:
+  build:
+    runs-on: k8s-runner-linux
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-maven
+        with:
+          java-version: '8'
+          maven-version: '3.6.3'
+          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
+      - run: mvn verify
