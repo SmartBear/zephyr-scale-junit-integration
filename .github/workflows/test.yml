@@ -3,12 +3,12 @@ name: Test
 on:
   workflow_call:
     secrets:
-      OSSRH_USERNAME:
+      SONATYPE_USERNAME:
         required: true
-        description: 'The OSSRH username'
-      OSSRH_PASSWORD:
+        description: 'The SONATYPE username'
+      SONATYPE_PASSWORD:
         required: true
-        description: 'The OSSRH password'
+        description: 'The SONATYPE password'
 
 jobs:
   build:
@@ -19,6 +19,6 @@ jobs:
         with:
           java-version: '8'
           maven-version: '3.6.3'
-          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
-          ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
+          sonatype-username: ${{ secrets.SONATYPE_USERNAME }}
+          sonatype-password: ${{ secrets.SONATYPE_PASSWORD }}
       - run: mvn verify

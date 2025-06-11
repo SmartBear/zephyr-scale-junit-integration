@@ -6,12 +6,12 @@ on:
       GPG_PASSPHRASE:
         required: true
         description: 'The GPG passphrase'
-      OSSRH_USERNAME:
+      SONATYPE_USERNAME:
         required: true
-        description: 'The OSSRH username'
-      OSSRH_PASSWORD:
+        description: 'The SONATYPE username'
+      SONATYPE_PASSWORD:
         required: true
-        description: 'The OSSRH password'
+        description: 'The SONATYPE password'
 
 jobs:
   deploy:
@@ -22,8 +22,8 @@ jobs:
         with:
           java-version: '8'
           maven-version: '3.6.3'
-          ossrh-username: ${{ secrets.OSSRH_USERNAME }}
-          ossrh-password: ${{ secrets.OSSRH_PASSWORD }}
+          sonatype-username: ${{ secrets.SONATYPE_USERNAME }}
+          sonatype-password: ${{ secrets.SONATYPE_PASSWORD }}
       - env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |

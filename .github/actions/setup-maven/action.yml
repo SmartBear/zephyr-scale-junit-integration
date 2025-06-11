@@ -9,12 +9,12 @@ inputs:
     description: 'The Maven version to use'
     required: true
     type: string
-  ossrh-username:
-    description: 'The OSSRH username'
+  sonatype-username:
+    description: 'The SONATYPE username'
     required: true
     type: string
-  ossrh-password:
-    description: 'The OSSRH password'
+  sonatype-password:
+    description: 'The SONATYPE password'
     required: true
     type: string
 runs:
@@ -29,6 +29,6 @@ runs:
       run: |
         mkdir -p $HOME/.m2
         cp .github/settings.xml $HOME/.m2/settings.xml
-        sed -i "s|\${OSSRH_USERNAME}|${{ inputs.ossrh-username }}|g" $HOME/.m2/settings.xml
-        sed -i "s|\${OSSRH_PASSWORD}|${{ inputs.ossrh-password }}|g" $HOME/.m2/settings.xml
+        sed -i "s|\${SONATYPE_USERNAME}|${{ inputs.sonatype-username }}|g" $HOME/.m2/settings.xml
+        sed -i "s|\${SONATYPE_PASSWORD}|${{ inputs.sonatype-password }}|g" $HOME/.m2/settings.xml
         cat $HOME/.m2/settings.xml
