@@ -126,7 +126,9 @@
                     <execution>
                         <id>attach-sources</id>
                         <phase>package</phase>
-                        <goals><goal>jar-no-fork</goal></goals>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -138,20 +140,14 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <phase>package</phase>
-                        <goals><goal>jar</goal></goals>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
-<!--    <distributionManagement>-->
-<!--        <repository>-->
-<!--            <id>ossrh</id>-->
-<!--            <name>Sonatype OSSRH Repository</name>-->
-<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
