@@ -2,12 +2,11 @@ name: CD
 
 on:
   push:
-    # TODO: testing
-    # tags:
-    #   - 'v*.*.*'
+    tags:
+      - 'v*.*.*'
       
 
 jobs:
-  test:
+  deploy:
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
