@@ -31,10 +31,10 @@ jobs:
           sed -i "s/\${GPG_PASSPHRASE}/$GPG_PASSPHRASE/g" ./pom.xml
           cat ./pom.xml
         name: Generate GPG key
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      # - name: Set up SSH key
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
       - name: Deploy
         run: mvn deploy -Prelease -X

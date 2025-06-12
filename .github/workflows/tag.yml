@@ -2,8 +2,8 @@ name: CD
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    # tags:
+    #   - 'v*.*.*'
       
 
 jobs:
