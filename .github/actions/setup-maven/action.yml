@@ -1,0 +1,34 @@
+name: 'Setup Maven'
+description: 'Installs maven and provides secrets'
+inputs:
+  java-version:
+    description: 'The Java version to use'
+    required: true
+    type: string
+  maven-version:
+    description: 'The Maven version to use'
+    required: true
+    type: string
+  sonatype-username:
+    description: 'The SONATYPE username'
+    required: true
+    type: string
+  sonatype-password:
+    description: 'The SONATYPE password'
+    required: true
+    type: string
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.18.0
+      with:
+        java-version: ${{ inputs.java-version }}
+        maven-version: ${{ inputs.maven-version }}
+    - shell: bash
+      run: |
+        mkdir -p $HOME/.m2
+        cp .github/settings.xml $HOME/.m2/settings.xml
+        sed -i "s|\${SONATYPE_USERNAME}|${{ inputs.sonatype-username }}|g" $HOME/.m2/settings.xml
+        sed -i "s|\${SONATYPE_PASSWORD}|${{ inputs.sonatype-password }}|g" $HOME/.m2/settings.xml
+        cat $HOME/.m2/settings.xml

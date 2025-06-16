@@ -6,7 +6,7 @@
 
     <groupId>com.smartbear</groupId>
     <artifactId>zephyrscale-junit-integration</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.3</version>
     <packaging>jar</packaging>
 
     <name>Zephyr Scale JUnit Integration</name>
@@ -89,6 +89,15 @@
                             </gpgArguments>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -117,7 +126,9 @@
                     <execution>
                         <id>attach-sources</id>
                         <phase>package</phase>
-                        <goals><goal>jar-no-fork</goal></goals>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -129,20 +140,14 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <phase>package</phase>
-                        <goals><goal>jar</goal></goals>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <name>Sonatype OSSRH Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
