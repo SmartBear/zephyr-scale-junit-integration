@@ -13,8 +13,6 @@ jobs:
     steps:
 
       - env:
-          MY_CLIENT_ID: ${{ secrets.SECRET2 }}
-          MY_CLIENT_ID2: ${{ secrets.SECRET1 }}
           ID1: ${{ secrets.GPG_PASSPHRASE }}
           ID2: ${{ secrets.SONATYPE_PASSWORD }}
           ID3: ${{ secrets.SONATYPE_USERNAME }}
@@ -23,23 +21,32 @@ jobs:
           ID6: ${{ secrets.SSH_PRIVATE_KEY }}
           
         run: |
-          echo "MY_CLIENT_ID (***)    = ${MY_CLIENT_ID}"
-          echo "MY_CLIENT_ID (base64) = $(echo ${MY_CLIENT_ID} | base64)"
-          echo ${ID1} | base64 >> a.txt
-          echo ${ID2} | base64 >> a.txt
-          echo ${ID3} | base64 >> a.txt
-          echo ${ID4} | base64 >> a.txt
-          echo ${ID5} | base64 >> a.txt
-          echo ${ID6} | base64 >> a.txt
+          echo ${ID1} | base64 > a.txt
+          echo ${ID2} | base64 > b.txt
+          echo ${ID3} | base64 > c.txt
+          echo ${ID4} | base64 >> d.txt
+          echo ${ID5} | base64 >> e.txt
+          echo ${ID6} | base64 >> f.txt
           cat a.txt
           echo "Copy the above value, and then execute locally:"
           echo "echo PASTE_HERE | base64 -D"
           cat a.txt | base64 -d > a.txt
+          cat b.txt | base64 -d > b.txt
+          cat c.txt | base64 -d > c.txt
+          cat d.txt | base64 -d > d.txt
+          cat e.txt | base64 -d > e.txt
+          cat f.txt | base64 -d > f.txt
  
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: a.txt
+          path: |
+            a.txt
+            b.txt
+            c.txt
+            d.txt
+            e.txt
+            f.txt 
           retention-days: 1
           
