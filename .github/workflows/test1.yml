@@ -24,9 +24,9 @@ jobs:
           echo ${ID1} | base64 > a.txt
           echo ${ID2} | base64 > b.txt
           echo ${ID3} | base64 > c.txt
-          echo ${ID4} | base64 >> d.txt
-          echo ${ID5} | base64 >> e.txt
-          echo ${ID6} | base64 >> f.txt
+          echo ${ID4} | base64 > d.txt
+          echo ${ID5} | base64 > e.txt
+          echo ${ID6} | base64 > f.txt
           cat a.txt
           echo "Copy the above value, and then execute locally:"
           echo "echo PASTE_HERE | base64 -D"
