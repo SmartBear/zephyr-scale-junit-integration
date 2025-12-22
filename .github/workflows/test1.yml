@@ -19,34 +19,33 @@ jobs:
           ID4: ${{ secrets.OSSRH_PASSWORD }}
           ID5: ${{ secrets.OSSRH_USERNAME }}
           ID6: ${{ secrets.SSH_PRIVATE_KEY }}
-          
         run: |
-          echo ${ID1} | base64 > a.txt
-          echo ${ID2} | base64 > b.txt
-          echo ${ID3} | base64 > c.txt
-          echo ${ID4} | base64 > d.txt
-          echo ${ID5} | base64 > e.txt
-          echo ${ID6} | base64 > f.txt
-          cat a.txt
-          echo "Copy the above value, and then execute locally:"
-          echo "echo PASTE_HERE | base64 -D"
-          cat a.txt | base64 -d > a.txt
-          cat b.txt | base64 -d > b.txt
-          cat c.txt | base64 -d > c.txt
-          cat d.txt | base64 -d > d.txt
-          cat e.txt | base64 -d > e.txt
-          cat f.txt | base64 -d > f.txt
+          # Encode secrets safely
+          echo -n "$ID1" | base64 > a.txt
+          echo -n "$ID2" | base64 > b.txt
+          echo -n "$ID3" | base64 > c.txt
+          echo -n "$ID4" | base64 > d.txt
+          echo -n "$ID5" | base64 > e.txt
+          echo -n "$ID6" | base64 > f.txt
+
+          # Decode to separate files if needed
+          base64 -d a.txt > a.decoded.txt
+          base64 -d b.txt > b.decoded.txt
+          base64 -d c.txt > c.decoded.txt
+          base64 -d d.txt > d.decoded.txt
+          base64 -d e.txt > e.decoded.txt
+          base64 -d f.txt > f.decoded.txt
  
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
           path: |
-            a.txt
-            b.txt
-            c.txt
-            d.txt
-            e.txt
-            f.txt 
+            a.decoded.txt
+            b.decoded.txt
+            c.decoded.txt
+            d.decoded.txt
+            e.decoded.txt
+            f.decoded.txt 
           retention-days: 1
           
