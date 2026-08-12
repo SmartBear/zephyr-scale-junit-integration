@@ -1,8 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/avst/TM4J/tm4j-junit-integration/images/download.svg) ](https://bintray.com/avst/TM4J/tm4j-junit-integration/_latestVersion)
+[ ![Maven Central](https://img.shields.io/maven-central/v/com.smartbear/zephyrscale-junit-integration) ](https://central.sonatype.com/artifact/com.smartbear/zephyrscale-junit-integration)
 
-# Zephyr Scale Junit Integration
+# Zephyr JUnit Integration
 
-This project is a Zephyr Scale JUnit Integration which aims to generate a file describing the test execution result for each Test Case.
+This project is a Zephyr JUnit Integration which aims to generate a file describing the test execution result for each Test Case.
 
 In order to achieve that, you need to annotate the JUnit methods with `@TestCase(key = "JQA-T2")` or `@TestCase(name = "")`.
 
@@ -12,7 +12,7 @@ JUnit methods which are not annotated with `@TestCase(name = "")` will also be a
 
 ## Usage
 
-You can have a look at this [Zephyr Scale JUnit Integration Example](https://github.com/SmartBear/zephyr-scale-junit-integration-example) repository.
+You can have a look at this [Zephyr JUnit Integration Example](https://github.com/SmartBear/zephyr-examples/tree/main/junit4-example) repository.
 
 You need to add the dependency to your pom file.
 
@@ -21,13 +21,13 @@ You need to add the dependency to your pom file.
     <dependency>
         <groupId>com.smartbear</groupId>
         <artifactId>zephyrscale-junit-integration</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.5</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
 ```
 
-Also, you'll need to register the Zephyr Scale JUnit Listener.
+Also, you'll need to register the Zephyr JUnit Listener.
 
 ```
 <build>
@@ -85,7 +85,7 @@ public class CalculatorSumTest {
 
 ```
 
-Now, you can run your tests with `mvn test` and the Zephyr Scale test execution result file will be generated in the same execution folder.
+Now, you can run your tests with `mvn test` and the Zephyr test execution result file will be generated in the same execution folder.
 
 ### zephyrscale_result.json
 
@@ -124,4 +124,4 @@ Now, you can run your tests with `mvn test` and the Zephyr Scale test execution 
 
 ## Support
 
-For any issues or enquiries please get in touch with the Zephyr Scale team at SmartBear using the [support portal](https://support.smartbear.com/zephyr-scale/).
+For any issues or enquiries please get in touch with the Zephyr team at SmartBear using the [support portal](https://support.smartbear.com/zephyr).
