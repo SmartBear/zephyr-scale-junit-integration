@@ -21,7 +21,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.18.0
+      uses: s4u/setup-maven-action@v1.20.0
       with:
         java-version: ${{ inputs.java-version }}
         maven-version: ${{ inputs.maven-version }}
