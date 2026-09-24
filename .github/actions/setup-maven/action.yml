@@ -1,12 +1,8 @@
 name: 'Setup Maven'
-description: 'Installs maven and provides secrets'
+description: 'Installs Java and provides secrets'
 inputs:
   java-version:
     description: 'The Java version to use'
-    required: true
-    type: string
-  maven-version:
-    description: 'The Maven version to use'
     required: true
     type: string
   sonatype-username:
@@ -20,11 +16,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.20.0
+    - name: Setup Java
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ inputs.java-version }}
-        maven-version: ${{ inputs.maven-version }}
+        distribution: temurin
+        cache: maven
     - shell: bash
       run: |
         mkdir -p $HOME/.m2

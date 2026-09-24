@@ -21,7 +21,6 @@ jobs:
       - uses: ./.github/actions/setup-maven
         with:
           java-version: '8'
-          maven-version: '3.6.3'
           sonatype-username: ${{ secrets.SONATYPE_USERNAME }}
           sonatype-password: ${{ secrets.SONATYPE_PASSWORD }}
       - env:
