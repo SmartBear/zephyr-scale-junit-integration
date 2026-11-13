@@ -12,6 +12,12 @@ on:
       SONATYPE_PASSWORD:
         required: true
         description: 'The SONATYPE password'
+      NEXUS_USERNAME:
+        required: true
+        description: 'The Nexus username'
+      NEXUS_PASSWORD:
+        required: true
+        description: 'The Nexus password'
 
 jobs:
   deploy:
@@ -22,6 +28,8 @@ jobs:
         with:
           java-version: '8'
           maven-version: '3.6.3'
+          nexus-username: ${{ secrets.NEXUS_USERNAME }}
+          nexus-password: ${{ secrets.NEXUS_PASSWORD }}
           sonatype-username: ${{ secrets.SONATYPE_USERNAME }}
           sonatype-password: ${{ secrets.SONATYPE_PASSWORD }}
       - env:

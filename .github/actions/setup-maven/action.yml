@@ -1,5 +1,5 @@
 name: 'Setup Maven'
-description: 'Installs maven and provides secrets'
+description: 'Installs Java, downloads Maven from Nexus, and provides secrets'
 inputs:
   java-version:
     description: 'The Java version to use'
@@ -7,6 +7,14 @@ inputs:
     type: string
   maven-version:
     description: 'The Maven version to use'
+    required: true
+    type: string
+  nexus-username:
+    description: 'The Nexus username'
+    required: true
+    type: string
+  nexus-password:
+    description: 'The Nexus password'
     required: true
     type: string
   sonatype-username:
@@ -20,15 +28,33 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.20.0
+    - name: Setup Java
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ inputs.java-version }}
-        maven-version: ${{ inputs.maven-version }}
-    - shell: bash
+        distribution: temurin
+    - name: Cache Maven repository
+      uses: actions/cache@v6
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-jdk${{ inputs.java-version }}-temurin-maven${{ inputs.maven-version }}-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-jdk${{ inputs.java-version }}-temurin-maven${{ inputs.maven-version }}-
+    - name: Download Maven from Nexus
+      shell: bash
+      run: |
+        MVN_VERSION="${{ inputs.maven-version }}"
+        MVN_DIR="$HOME/.local/apache-maven-${MVN_VERSION}"
+        mkdir -p "${MVN_DIR}"
+        curl -u "${{ inputs.nexus-username }}:${{ inputs.nexus-password }}" \
+          -fsSL \
+          "https://nexus-acadia-external.smartbear.io/repository/maven-private-group/org/apache/maven/apache-maven/${MVN_VERSION}/apache-maven-${MVN_VERSION}-bin.tar.gz" \
+          -o "${MVN_DIR}/apache-maven-${MVN_VERSION}-bin.tar.gz"
+        tar -xzf "${MVN_DIR}/apache-maven-${MVN_VERSION}-bin.tar.gz" -C "${MVN_DIR}" --strip-components=1
+        echo "${MVN_DIR}/bin" >> "$GITHUB_PATH"
+    - name: Configure Maven settings
+      shell: bash
       run: |
         mkdir -p $HOME/.m2
         cp .github/settings.xml $HOME/.m2/settings.xml
         sed -i "s|\${SONATYPE_USERNAME}|${{ inputs.sonatype-username }}|g" $HOME/.m2/settings.xml
         sed -i "s|\${SONATYPE_PASSWORD}|${{ inputs.sonatype-password }}|g" $HOME/.m2/settings.xml
-        cat $HOME/.m2/settings.xml
